@@ -1,13 +1,13 @@
 package app.nakata.eririn.myfreetime
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.timelist.*
-import java.sql.Time
 
 class TimeList : AppCompatActivity() {
+
 
     val timeData:List<TimeData> = listOf(
         TimeData("6:00",""),
@@ -40,5 +40,14 @@ class TimeList : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         adapter.addAll(timeData)
+
+        val timer = Intent(this,TimerActivity::class.java)
+
+        calculateButton.setOnClickListener {
+            startActivity(timer)
+        }
+
+
+
     }
 }

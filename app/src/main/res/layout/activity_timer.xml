@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="161dp"
         android:layout_marginBottom="24dp"
-        android:text="Start"
+        android:background="#F2D6A7F3"
+        android:text="スタート"
         app:layout_constraintBottom_toTopOf="@+id/stopButton"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -23,7 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
         android:layout_marginBottom="32dp"
-        android:text="Stop"
+        android:background="#F2D6A7F3"
+        android:text="ストップ"
         android:textColorLink="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/returnButton"
         app:layout_constraintStart_toStartOf="parent" />
@@ -34,7 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="286dp"
         android:layout_marginBottom="32dp"
-        android:text="Return"
+        android:background="#F2D6A7F3"
+        android:text="リターン"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

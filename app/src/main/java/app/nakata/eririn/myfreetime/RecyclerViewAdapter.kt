@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.*
      override fun onBindViewHolder(holder: ViewHolder, position: Int) {
          val item = items[position]
          holder.time.text = item.time
-         holder.schedule.text = item.schedule
+         holder.schedule.setText(item.schedule)
      }
 
      fun addAll(items:List<TimeData>){
