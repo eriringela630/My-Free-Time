@@ -1,6 +1,8 @@
 package app.nakata.eririn.myfreetime
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,7 +49,23 @@ class TimeList : AppCompatActivity() {
             startActivity(timer)
         }
 
+        val dataStore: SharedPreferences = getSharedPreferences("DataStore", Context.MODE_PRIVATE)
 
+        calculateButton.setOnClickListener {
+            val freetime = adapter.returntimes()
+
+            val editor = dataStore.edit()
+            editor.putInt("DataInt",freetime)
+
+            editor.apply()
+
+        }
 
     }
+
+
+}
+
+private fun SharedPreferences.Editor.putInt(s: String, freetime: Unit) {
+    TODO("Not yet implemented")
 }

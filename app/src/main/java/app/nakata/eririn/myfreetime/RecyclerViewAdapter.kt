@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.*
 
@@ -31,10 +32,29 @@ import kotlinx.android.synthetic.*
          val item = items[position]
          holder.time.text = item.time
          holder.schedule.setText(item.schedule)
+         holder.schedule.doAfterTextChanged {
+             if (it?.isNotEmpty() == true) {
+                 item.schedule = it.toString()
+             }
+         }
+     }
+
+     fun returntimes() {
+
+         var number = 0
+
+         for(item in items) {
+             if(item.schedule.isEmpty()){
+                 number += 1
+             }
+         }
      }
 
      fun addAll(items:List<TimeData>){
          this.items.addAll(items)
          notifyDataSetChanged()
      }
+
+
+
  }
