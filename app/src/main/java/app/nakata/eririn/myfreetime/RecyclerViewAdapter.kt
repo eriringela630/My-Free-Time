@@ -39,7 +39,7 @@ import kotlinx.android.synthetic.*
          }
      }
 
-     fun returntimes() {
+     fun returntimes():Int {
 
          var number = 0
 
@@ -48,6 +48,7 @@ import kotlinx.android.synthetic.*
                  number += 1
              }
          }
+         return number
      }
 
      fun addAll(items:List<TimeData>){

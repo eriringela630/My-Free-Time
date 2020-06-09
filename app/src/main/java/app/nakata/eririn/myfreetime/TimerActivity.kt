@@ -18,7 +18,7 @@ import java.util.*
 class TimerActivity : AppCompatActivity() {
 
     //タイマー
-    val second = 10
+    val second = TimeList.freetime
     val timer :CountDownTimer = object : CountDownTimer(10000,1000){
         override fun onFinish() {
             imageView.setImageResource(R.drawable.flower5)

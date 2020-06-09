@@ -66,6 +66,3 @@ class TimeList : AppCompatActivity() {
 
 }
 
-private fun SharedPreferences.Editor.putInt(s: String, freetime: Unit) {
-    TODO("Not yet implemented")
-}
