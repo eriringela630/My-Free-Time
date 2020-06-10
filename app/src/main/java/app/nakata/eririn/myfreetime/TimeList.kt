@@ -37,25 +37,28 @@ class TimeList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.timelist)
 
+        //アダプター
         val adapter = RecyclerViewAdapter(this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
         adapter.addAll(timeData)
 
+        //ページ遷移
         val timer = Intent(this,TimerActivity::class.java)
 
         calculateButton.setOnClickListener {
             startActivity(timer)
         }
 
+        //ローカル
         val dataStore: SharedPreferences = getSharedPreferences("DataStore", Context.MODE_PRIVATE)
 
         calculateButton.setOnClickListener {
             val freetime = adapter.returntimes()
 
             val editor = dataStore.edit()
-            editor.putInt("DataInt",freetime)
+            editor.putInt("Input",freetime)
 
             editor.apply()
 

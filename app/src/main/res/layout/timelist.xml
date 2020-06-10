@@ -26,6 +26,6 @@
         android:background="#F2D6A7F3"
         android:text="計算する"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
