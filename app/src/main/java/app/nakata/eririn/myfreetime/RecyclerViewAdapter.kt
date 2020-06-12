@@ -41,7 +41,7 @@ import kotlinx.android.synthetic.*
 
      fun returntimes():Int {
 
-         var number = 0
+         var number :Int = 0
 
          for(item in items) {
              if(item.schedule.isEmpty()){

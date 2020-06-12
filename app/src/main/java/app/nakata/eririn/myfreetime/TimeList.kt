@@ -46,19 +46,17 @@ class TimeList : AppCompatActivity() {
 
         adapter.addAll(timeData)
 
-        //ページ遷移
-
-
-
 
         //ローカル
         val dataStore: SharedPreferences = getSharedPreferences("DataStore", Context.MODE_PRIVATE)
+        dataStore.getInt("Input",18)
+        //ページ遷移
         val timer = Intent(this,TimerActivity::class.java)
 
-        dataStore.getInt("Input",18)
+
 
         calculateButton.setOnClickListener {
-            val freetime = adapter.returntimes()
+            val freetime : Int = adapter.returntimes()
 
             val editor = dataStore.edit()
             editor.putInt("Input",freetime)

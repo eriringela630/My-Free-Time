@@ -5,50 +5,40 @@ import android.app.PendingIntent
 import android.content.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.Toast
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_timer.*
 import java.util.*
 
 class TimerActivity : AppCompatActivity() {
-    //データストアから値を読み出す
-    //val
-    //val intValue = Input.getInt
 
-    //タイマー
-   // val second = intValue
-    //val timer : CountDownTimer = object : CountDownTimer(intValue.toLong()*10, intValue.toLong()){
-        //タイマー残り時間マックス
-        //fun max(){
-            //if (){
-                //imageView.setImageResource(R.drawable.flower)
-           // }
+    val dataStore: SharedPreferences = getSharedPreferences("DataStore", Context.MODE_PRIVATE)
 
-       // }
-        //タイマー残り時間ハーフ
-        //fun half(){
-            //if(){
-               // imageView.setImageResource(R.drawable.flower3)
-           // }
+    //残り時間のセット
+    var timertime: Int = dataStore.getInt("Input",18)
+    var minutes : Int = timertime*60
 
-        //}
-        //タイマー終了時
-        //override fun onFinish() {
-            //imageView.setImageResource(R.drawable.flower5)
-           // secondText.text = "タイムオーバー"
-        //}
+    //タイマーをセット
+    val timer : CountDownTimer = object : CountDownTimer(timertime.toLong()*10,timertime.toLong()){
+        override fun onFinish() {
+            imageView.setImageResource(R.drawable.flower5)
+            secondText.text = "タイムオーバー"
+        }
+        //カウントダウンごとの処理
+        override fun onTick(millisUntilFinished: Long){
+            minutes -= 1
+            secondText.text = minutes.toString()
+        }
+    }
 
-       // override fun onTick(millisUntilFinished: Long) {
-           // TODO("Not yet implemented")
-       // }
-  //  }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timer)
 
-        val dataStore: SharedPreferences = getSharedPreferences("DataStore", Context.MODE_PRIVATE)
-        val timertime: Int = dataStore.getInt("Input",18)
+        //タイマー時間表示
+        secondText.text = minutes.toString()
 
         //ページ遷移
         val timelist = Intent(this,TimeList::class.java)
@@ -72,10 +62,11 @@ class TimerActivity : AppCompatActivity() {
 
             //タイマーボタンを見えなくする
             startButton.isVisible = false
+            //タイマー開始
+            timer.start()
         }
 
-        //残り時間の表示
-        //secondText.text = second.toString()
+
 
         startButton.setOnClickListener {
             startButton.text = "ストップ"
