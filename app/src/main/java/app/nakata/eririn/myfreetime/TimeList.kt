@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.renderscript.ScriptGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.timelist.*
@@ -45,14 +47,15 @@ class TimeList : AppCompatActivity() {
         adapter.addAll(timeData)
 
         //ページ遷移
-        val timer = Intent(this,TimerActivity::class.java)
 
-        calculateButton.setOnClickListener {
-            startActivity(timer)
-        }
+
+
 
         //ローカル
         val dataStore: SharedPreferences = getSharedPreferences("DataStore", Context.MODE_PRIVATE)
+        val timer = Intent(this,TimerActivity::class.java)
+
+        dataStore.getInt("Input",18)
 
         calculateButton.setOnClickListener {
             val freetime = adapter.returntimes()
@@ -62,6 +65,7 @@ class TimeList : AppCompatActivity() {
 
             editor.apply()
 
+            startActivity(timer)
         }
 
     }

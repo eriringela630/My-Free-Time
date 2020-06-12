@@ -8,7 +8,7 @@
     tools:context=".TimerActivity">
 
     <Button
-        android:id="@+id/timerButton"
+        android:id="@+id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"
@@ -68,6 +68,6 @@
         android:text="ストップ"
         app:layout_constraintBottom_toTopOf="@+id/returnButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/timerButton" />
+        app:layout_constraintStart_toEndOf="@+id/startButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
