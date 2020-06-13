@@ -21,23 +21,32 @@ class TimerActivity : AppCompatActivity() {
 
         //残り時間のセット
         var timertime = dataStore.getInt("Input",18)
-        var minutes : Int = timertime*60
+        var second : Int = timertime*60*60
 
         //タイマーをセット
-        val timer : CountDownTimer = object : CountDownTimer(timertime.toLong()*60*60*10000,timertime.toLong()*60*60*1000){
+        val timer : CountDownTimer = object : CountDownTimer(second.toLong()*10000,1000){
             override fun onFinish() {
                 imageView.setImageResource(R.drawable.flower5)
                 secondText.text = "タイムオーバー"
             }
             //カウントダウンごとの処理
             override fun onTick(millisUntilFinished: Long){
-                minutes -= 1
-                secondText.text = minutes.toString()
+
+                second -= 1
+
+                var hour : Int = second/3600
+                var minutes : Int = second/60%60
+                var calculatesecond : Int = second%60
+
+                secondText.text = ("$hour:$minutes:$calculatesecond")
             }
         }
 
+        //second.toString((millisUntilFinished/1000/3600).toInt())+":"+second.toString(
+        //                    (millisUntilFinished/1000/60%60).toInt())+":"+second.toString((millisUntilFinished/1000%60).toInt())
+
         //タイマー時間表示
-        secondText.text = minutes.toString()
+        secondText.text = second.toString()
 
         //ページ遷移
         val timelist = Intent(this,TimeList::class.java)

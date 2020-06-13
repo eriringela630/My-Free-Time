@@ -11,8 +11,8 @@
         android:id="@+id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="8dp"
         android:background="#F2D6A7F3"
         android:text="スタート"
         android:textColorLink="#FFFFFF"
@@ -23,11 +23,13 @@
         android:id="@+id/returnButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="340dp"
-        android:layout_marginBottom="29dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="28dp"
         android:background="#F2D6A7F3"
         android:text="リターン"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -47,13 +49,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="190dp"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="190dp"
         android:background="#F2D6A7F3"
         android:text="10:00"
         android:textSize="36dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -61,13 +63,11 @@
         android:id="@+id/stopButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="135dp"
         android:layout_marginEnd="92dp"
-        android:layout_marginBottom="73dp"
+        android:layout_marginBottom="44dp"
         android:background="#F2D6A7F3"
         android:text="ストップ"
         app:layout_constraintBottom_toTopOf="@+id/returnButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/startButton" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
