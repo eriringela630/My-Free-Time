@@ -42,11 +42,12 @@ class TimerActivity : AppCompatActivity() {
             }
         }
 
-        //second.toString((millisUntilFinished/1000/3600).toInt())+":"+second.toString(
-        //                    (millisUntilFinished/1000/60%60).toInt())+":"+second.toString((millisUntilFinished/1000%60).toInt())
+        //最初のタイマー時間表示
+        var hour : Int = second/3600
+        var minutes : Int = second/60%60
+        var calculatesecond : Int = second%60
 
-        //タイマー時間表示
-        secondText.text = second.toString()
+        secondText.text = ("$hour:$minutes:$calculatesecond")
 
         //ページ遷移
         val timelist = Intent(this,TimeList::class.java)
@@ -55,9 +56,21 @@ class TimerActivity : AppCompatActivity() {
             startActivity(timelist)
         }
 
+        //タイマー開始
+        startButton.setOnClickListener {
+            timer.start()
+            //タイマーボタンを見えなくする
+            startButton.isVisible = false
+            stopButton.isVisible = true
+        }
+        stopButton.setOnClickListener {
+            timer.cancel()
+            startButton.isVisible = true
+            stopButton.isVisible = false
+        }
 
 
-            //アラーム機能
+        //アラーム機能
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
         calendar.add(Calendar.HOUR,1)
@@ -68,10 +81,8 @@ class TimerActivity : AppCompatActivity() {
         var finish :AlarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
         finish.setExact(AlarmManager.RTC_WAKEUP,calendar.timeInMillis,pending)
 
-        //タイマーボタンを見えなくする
-        startButton.isVisible = false
-        //タイマー開始
-        timer.start()
+
+
 
     }
 

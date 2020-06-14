@@ -4,16 +4,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
-import android.renderscript.ScriptGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import io.realm.Realm
+import io.realm.RealmObject
+import io.realm.RealmResults
+import kotlinx.android.synthetic.main.item_time_data_cell.*
 import kotlinx.android.synthetic.main.timelist.*
 
-class TimeList : AppCompatActivity() {
+open class TimeList : AppCompatActivity() {
 
 
-    val timeData:List<TimeData> = listOf(
+     open val timeData:List<TimeData> = listOf(
         TimeData("6:00",""),
         TimeData("7:00",""),
         TimeData("8:00",""),
@@ -33,7 +35,11 @@ class TimeList : AppCompatActivity() {
         TimeData("22:00",""),
         TimeData("23:00",""),
         TimeData("24:00","")
-        )
+        ) : RealmObject
+
+
+    val realm : Realm = Realm.getDefaultInstance()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,10 +68,42 @@ class TimeList : AppCompatActivity() {
             editor.putInt("Input",freetime)
 
             editor.apply()
-
+            //ページ遷移
             startActivity(timer)
+            //テキスト取得
+            val schedule: String = scheduleTextView.text.toString()
+            save(schedule)
+
+
         }
 
+        val memo: TimeList? = read()
+        if (memo != null){
+            //scheduleTextView.setText(memo.shedule)
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        realm.close()
+    }
+
+    fun read():  {
+        return realm.where(TimeList::class.java).findAll()
+    }
+
+    fun save(schedule: String){
+        val memo:TimeData? = read()
+
+        realm.executeTransaction{
+            if (memo != null){
+                memo.shedule = schedule
+            }else{
+                val newMemo: Memo = it.createObject(Memo::class.java)
+                newMemo.shedule = schedule
+            }
+        }
     }
 
 
