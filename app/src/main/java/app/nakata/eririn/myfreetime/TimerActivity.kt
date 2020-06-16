@@ -13,6 +13,8 @@ import java.util.*
 
 class TimerActivity : AppCompatActivity() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timer)
@@ -22,6 +24,13 @@ class TimerActivity : AppCompatActivity() {
         //残り時間のセット
         var timertime = dataStore.getInt("Input",18)
         var second : Int = timertime*60*60
+        //最初のタイマー時間表示
+        var hour : Int = second/3600
+        var minutes : Int = second/60%60
+        var calculatesecond : Int = second%60
+
+        secondText.text = ("$hour:$minutes:$calculatesecond")
+
 
         //タイマーをセット
         val timer : CountDownTimer = object : CountDownTimer(second.toLong()*10000,1000){
@@ -32,22 +41,26 @@ class TimerActivity : AppCompatActivity() {
             //カウントダウンごとの処理
             override fun onTick(millisUntilFinished: Long){
 
-                second -= 1
+                var remainTime :Int = second - 1
+                dataStore.getLong("remaintime",18)
 
-                var hour : Int = second/3600
-                var minutes : Int = second/60%60
-                var calculatesecond : Int = second%60
+
+                var hour : Int = remainTime/3600
+                var minutes : Int = remainTime/60%60
+                var calculatesecond : Int = remainTime%60
 
                 secondText.text = ("$hour:$minutes:$calculatesecond")
             }
+
+
         }
 
         //最初のタイマー時間表示
-        var hour : Int = second/3600
-        var minutes : Int = second/60%60
-        var calculatesecond : Int = second%60
-
-        secondText.text = ("$hour:$minutes:$calculatesecond")
+//        var hour : Int = second/3600
+//        var minutes : Int = second/60%60
+//        var calculatesecond : Int = second%60
+//
+//        secondText.text = ("$hour:$minutes:$calculatesecond")
 
         //ページ遷移
         val timelist = Intent(this,TimeList::class.java)
@@ -67,6 +80,16 @@ class TimerActivity : AppCompatActivity() {
             timer.cancel()
             startButton.isVisible = true
             stopButton.isVisible = false
+
+            //dataStore.getLong("remaintime",18)
+
+            //保存する
+            val remainTime : Long = timertime.toLong()
+
+            val editor = dataStore.edit()
+            editor.putLong("remaintime",remainTime)
+
+            editor.apply()
         }
 
 

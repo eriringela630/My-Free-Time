@@ -7,15 +7,17 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.realm.Realm
-import io.realm.RealmObject
 import io.realm.RealmResults
+import android.util.Log
+import io.realm.OrderedRealmCollection
 import kotlinx.android.synthetic.main.item_time_data_cell.*
 import kotlinx.android.synthetic.main.timelist.*
 
-open class TimeList : AppCompatActivity() {
+
+class TimeList : AppCompatActivity() {
 
 
-     open val timeData:List<TimeData> = listOf(
+    val timeData:List<TimeData> = listOf(
         TimeData("6:00",""),
         TimeData("7:00",""),
         TimeData("8:00",""),
@@ -35,15 +37,14 @@ open class TimeList : AppCompatActivity() {
         TimeData("22:00",""),
         TimeData("23:00",""),
         TimeData("24:00","")
-        ) : RealmObject
+        )
 
-
-    val realm : Realm = Realm.getDefaultInstance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.timelist)
+
 
         //アダプター
         val adapter = RecyclerViewAdapter(this)
@@ -52,9 +53,10 @@ open class TimeList : AppCompatActivity() {
 
         adapter.addAll(timeData)
 
-
-        //ローカル
         val dataStore: SharedPreferences = getSharedPreferences("DataStore", Context.MODE_PRIVATE)
+
+
+        //ローカル保存
         dataStore.getInt("Input",18)
         //ページ遷移
         val timer = Intent(this,TimerActivity::class.java)
@@ -67,43 +69,38 @@ open class TimeList : AppCompatActivity() {
             val editor = dataStore.edit()
             editor.putInt("Input",freetime)
 
+
             editor.apply()
+
+            //これでじっこうすると、logに表示される
+            //log.v(freetime)
+
+
             //ページ遷移
             startActivity(timer)
-            //テキスト取得
-            val schedule: String = scheduleTextView.text.toString()
-            save(schedule)
+
 
 
         }
 
-        val memo: TimeList? = read()
-        if (memo != null){
-            //scheduleTextView.setText(memo.shedule)
+
+    }
+
+
+
+
+
+    override fun onStart() {
+        super.onStart()
+        val dataStore: SharedPreferences = getSharedPreferences("DataStore", Context.MODE_PRIVATE)
+
+        if (dataStore.getLong("remaintime",18) == null) {
+
+        } else {
+            var remaintime = dataStore.getLong("remaintime",18)
+            print(remaintime)
         }
 
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        realm.close()
-    }
-
-    fun read():  {
-        return realm.where(TimeList::class.java).findAll()
-    }
-
-    fun save(schedule: String){
-        val memo:TimeData? = read()
-
-        realm.executeTransaction{
-            if (memo != null){
-                memo.shedule = schedule
-            }else{
-                val newMemo: Memo = it.createObject(Memo::class.java)
-                newMemo.shedule = schedule
-            }
-        }
     }
 
 
