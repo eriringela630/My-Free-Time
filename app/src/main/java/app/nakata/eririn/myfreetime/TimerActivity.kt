@@ -13,8 +13,6 @@ import java.util.*
 
 class TimerActivity : AppCompatActivity() {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timer)
@@ -22,15 +20,13 @@ class TimerActivity : AppCompatActivity() {
         val dataStore: SharedPreferences = getSharedPreferences("DataStore", Context.MODE_PRIVATE)
 
         //残り時間のセット
-        var timertime = dataStore.getInt("Input",18)
-        var second : Int = timertime*60*60
+        val timertime = dataStore.getInt("Input",18)
+        val second : Int = timertime*60*60
         //最初のタイマー時間表示
-        var hour : Int = second/3600
-        var minutes : Int = second/60%60
-        var calculatesecond : Int = second%60
-
+        val hour : Int = second/3600
+        val minutes : Int = second/60%60
+        val calculatesecond : Int = second%60
         secondText.text = ("$hour:$minutes:$calculatesecond")
-
 
         //タイマーをセット
         val timer : CountDownTimer = object : CountDownTimer(second.toLong()*10000,1000){
@@ -42,7 +38,7 @@ class TimerActivity : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long){
 
                 var remainTime :Int = second - 1
-                dataStore.getLong("remaintime",18)
+                dataStore.getLong("remain",18)
 
 
                 var hour : Int = remainTime/3600
@@ -52,23 +48,7 @@ class TimerActivity : AppCompatActivity() {
                 secondText.text = ("$hour:$minutes:$calculatesecond")
             }
 
-
         }
-
-        //最初のタイマー時間表示
-//        var hour : Int = second/3600
-//        var minutes : Int = second/60%60
-//        var calculatesecond : Int = second%60
-//
-//        secondText.text = ("$hour:$minutes:$calculatesecond")
-
-        //ページ遷移
-        val timelist = Intent(this,TimeList::class.java)
-
-        returnButton.setOnClickListener {
-            startActivity(timelist)
-        }
-
         //タイマー開始
         startButton.setOnClickListener {
             timer.start()
@@ -76,20 +56,27 @@ class TimerActivity : AppCompatActivity() {
             startButton.isVisible = false
             stopButton.isVisible = true
         }
+
         stopButton.setOnClickListener {
             timer.cancel()
             startButton.isVisible = true
             stopButton.isVisible = false
 
-            //dataStore.getLong("remaintime",18)
+            //dataStore.getLong("remain",18)
 
             //保存する
-            val remainTime : Long = timertime.toLong()
+            val carculateTime : Long = timertime.toLong()
 
             val editor = dataStore.edit()
-            editor.putLong("remaintime",remainTime)
+            editor.putLong("remain",carculateTime)
 
             editor.apply()
+        }
+        //ページ遷移
+        val timelist = Intent(this,TimeList::class.java)
+
+        returnButton.setOnClickListener {
+            startActivity(timelist)
         }
 
 

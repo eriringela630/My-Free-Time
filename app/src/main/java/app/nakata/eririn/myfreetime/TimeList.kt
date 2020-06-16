@@ -69,8 +69,23 @@ class TimeList : AppCompatActivity() {
             val editor = dataStore.edit()
             editor.putInt("Input",freetime)
 
-
             editor.apply()
+
+            if (dataStore.getLong("remain",18) == null) {
+
+            } else {
+                var remaintime = dataStore.getLong("remain",18)
+
+            }
+
+
+
+
+
+
+
+
+
 
             //これでじっこうすると、logに表示される
             //log.v(freetime)
@@ -78,6 +93,8 @@ class TimeList : AppCompatActivity() {
 
             //ページ遷移
             startActivity(timer)
+
+
 
 
 
