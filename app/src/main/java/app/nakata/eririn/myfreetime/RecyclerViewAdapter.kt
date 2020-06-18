@@ -32,6 +32,8 @@ import kotlinx.android.synthetic.*
          val item = items[position]
          holder.time.text = item.time
          holder.schedule.setText(item.schedule)
+         holder.schedule
+
          holder.schedule.doAfterTextChanged {
              if (it?.isNotEmpty() == true) {
                  item.schedule = it.toString()

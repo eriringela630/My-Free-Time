@@ -23,8 +23,11 @@
         android:id="@+id/calculateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#F2D6A7F3"
+        android:layout_marginTop="576dp"
+        android:layout_marginEnd="160dp"
+        android:background="@drawable/background_rounded_courners"
         android:text="計算する"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

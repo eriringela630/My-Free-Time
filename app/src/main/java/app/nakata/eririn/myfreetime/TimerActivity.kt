@@ -20,12 +20,12 @@ class TimerActivity : AppCompatActivity() {
         val dataStore: SharedPreferences = getSharedPreferences("DataStore", Context.MODE_PRIVATE)
 
         //残り時間のセット
-        val timertime = dataStore.getInt("Input",18)
-        val second : Int = timertime*60*60
+        var timertime = dataStore.getInt("Input",18)
+        var second : Int = timertime*60*60
         //最初のタイマー時間表示
-        val hour : Int = second/3600
-        val minutes : Int = second/60%60
-        val calculatesecond : Int = second%60
+        var hour : Int = second/3600
+        var minutes : Int = second/60%60
+        var calculatesecond : Int = second%60
         secondText.text = ("$hour:$minutes:$calculatesecond")
 
         //タイマーをセット
@@ -37,13 +37,13 @@ class TimerActivity : AppCompatActivity() {
             //カウントダウンごとの処理
             override fun onTick(millisUntilFinished: Long){
 
-                var remainTime :Int = second - 1
+                second -= 1
                 dataStore.getLong("remain",18)
 
 
-                var hour : Int = remainTime/3600
-                var minutes : Int = remainTime/60%60
-                var calculatesecond : Int = remainTime%60
+                var hour : Int = second/3600
+                var minutes : Int = second/60%60
+                var calculatesecond : Int = second%60
 
                 secondText.text = ("$hour:$minutes:$calculatesecond")
             }
